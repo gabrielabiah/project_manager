@@ -14,7 +14,7 @@ set('repository', 'https://github.com/gabrielabiah/project_manager.git');
 
 add('shared_files', []);
 add('shared_dirs', []);
-add('writable_dirs', []);
+//add('writable_dirs', []);
 
 set('allow_anonymous_stats', false);
 
@@ -29,3 +29,8 @@ task('build', function () {
 });
 
 after('deploy:failed', 'deploy:unlock');
+
+
+// Migrate database before symlink new release.
+
+before('deploy:symlink', 'artisan:migrate');

@@ -39,13 +39,14 @@ Route::get('/', ['uses' => 'HomeController@landingPage'])->middleware(['XSS']);
 Route::get('/home', ['as' => 'home','uses' =>'HomeController@index'])->middleware(['auth','XSS']);
 
 
-Route::get('login/{lang?}', 'Auth\AuthenticatedSessionController@showLoginForm')->name('login')->middleware(['XSS']);
-Route::get('register/{lang?}', 'Auth\RegisteredUserController@showRegistrationForm')->name('register')->middleware(['XSS']);
-Route::get('password/resets/{lang?}', 'Auth\AuthenticatedSessionController@showLinkRequestForm')->name('password.request')->middleware(['XSS']);
+Route::get('login/{lang?}', 'Auth\AuthenticatedSessionController@showLoginForm')->name('login
+')->middleware(['XSS']);
+Route::get('register/{lang?}', 'Auth\RegisteredUserController@showRegistrationForm')->name('register.form')->middleware(['XSS']);
+Route::get('password/resets/{lang?}', 'Auth\AuthenticatedSessionController@showLinkRequestForm')->name('password.request.form')->middleware(['XSS']);
 
 Route::prefix('client')->as('client.')->group(function() {
     Route::post('login', 'Auth\AuthenticatedSessionController@clientLogin')->name('login')->middleware(['XSS']);
-    Route::get('login/{lang?}', 'Auth\AuthenticatedSessionController@showClientLoginForm')->name('login')->middleware(['XSS']);
+    Route::get('login/{lang?}', 'Auth\AuthenticatedSessionController@showClientLoginForm')->name('login.form')->middleware(['XSS']);
     Route::post('logout', 'ClientController@clientLogout')->name('logout')->middleware(['auth:client','XSS']);
     Route::get('/my-account',['as' => 'users.my.account','uses' =>'UserController@account'])->middleware(['auth:client','XSS']);
     Route::post('/my-account',['as' => 'update.account','uses' =>'UserController@update'])->middleware(['auth:client','XSS']);
@@ -176,7 +177,7 @@ Route::get('/usersJson/{id}',['as' => 'user.email.json','uses' =>'UserController
 Route::get('/{slug}/searchJson/{search?}',['as' => 'search.json','uses' =>'ProjectController@getSearchJson'])->middleware(['auth','XSS']);
 Route::get('/userProjectJson/{id}',['as' => 'user.project.json','uses' =>'UserController@getProjectUserJson'])->middleware(['auth','XSS']);
 Route::get('/projectMilestoneJson/{id}',['as' => 'project.milestone.json','uses' =>'UserController@getProjectMilestoneJson'])->middleware(['auth','XSS']);
-Route::get('/users',['as' => 'users.index','uses' =>'UserController@index'])->middleware(['auth','XSS']);
+Route::get('/users',['as' => 'users.index.list','uses' =>'UserController@index'])->middleware(['auth','XSS']);
 Route::get('/users/create',['as' => 'users.create','uses' =>'UserController@create'])->middleware(['auth','XSS']);
 Route::post('/users/store',['as' => 'users.store','uses' =>'UserController@store'])->middleware(['auth','XSS']);
 Route::delete('/users/{id}',['as' => 'users.delete','uses' =>'UserController@destroy'])->middleware(['auth','XSS']);
@@ -260,7 +261,7 @@ Route::get('/{slug}/projects/{id}/gantt/{duration?}',['as' => 'projects.gantt','
 Route::post('/{slug}/projects/{id}/gantt',['as' => 'projects.gantt.post','uses' =>'ProjectController@ganttPost'])->middleware(['auth','XSS']);
 
 Route::get('/{slug}/tasks',['as' => 'tasks.index','uses' =>'ProjectController@allTasks'])->middleware(['auth','XSS']);
-Route::post('/{slug}/tasks',['as' => 'tasks.ajax','uses' =>'ProjectController@ajax_tasks'])->middleware(['auth','XSS']);
+Route::post('/{slug}/tasks',['as' => 'tasks.ajax.chart','uses' =>'ProjectController@ajax_tasks'])->middleware(['auth','XSS']);
 
 // Timesheet
 Route::get('/{slug}/tasks/{id?}',['as' => 'tasks.ajax','uses' =>'ProjectController@getTask'])->middleware(['auth','XSS']);
