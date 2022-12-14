@@ -23,8 +23,6 @@ Route::get('/dashboard', function () {
 
 require __DIR__.'/auth.php';
 
-
-
 Route::get(
 
   '/{slug}/invoices/{id}/pay', [
@@ -49,7 +47,7 @@ Route::prefix('client')->as('client.')->group(function() {
     Route::get('login/{lang?}', 'Auth\AuthenticatedSessionController@showClientLoginForm')->name('login.form')->middleware(['XSS']);
     Route::post('logout', 'ClientController@clientLogout')->name('logout')->middleware(['auth:client','XSS']);
     Route::get('/my-account',['as' => 'users.my.account','uses' =>'UserController@account'])->middleware(['auth:client','XSS']);
-    Route::post('/my-account',['as' => 'update.account','uses' =>'UserController@update'])->middleware(['auth:client','XSS']);
+    Route::post('/my-account/{id}',['as' => 'update.account','uses' =>'UserController@update'])->middleware(['auth:client','XSS']);
     Route::post('/my-account/password',['as' => 'update.password','uses' =>'UserController@updatePassword'])->middleware(['auth:client','XSS']);
     Route::post('/my-account/billing',['as' => 'update.billing','uses' =>'ClientController@updateBilling'])->middleware(['auth:client','XSS']);
     Route::delete('/my-account',['as' => 'delete.avatar','uses' =>'UserController@deleteAvatar'])->middleware(['auth:client','XSS']);
@@ -192,7 +190,7 @@ Route::get('/{slug}/users/{id}/edit',['as' => 'users.edit','uses' =>'UserControl
 Route::post('/{slug}/users/{id}/update',['as' => 'users.update','uses' =>'UserController@update'])->middleware(['auth','XSS']);
 Route::delete('/{slug}/users/{id}',['as' => 'users.remove','uses' =>'UserController@removeUser'])->middleware(['auth','XSS']);
 Route::get('/my-account',['as' => 'users.my.account','uses' =>'UserController@account'])->middleware(['auth','XSS']);
-Route::post('/my-account',['as' => 'update.account','uses' =>'UserController@update'])->middleware(['auth','XSS']);
+Route::post('/my-account/{id}',['as' => 'update.account','uses' =>'UserController@update'])->middleware(['auth','XSS']);
 Route::post('/my-account/password',['as' => 'update.password','uses' =>'UserController@updatePassword'])->middleware(['auth','XSS']);
 Route::delete('/my-account',['as' => 'delete.avatar','uses' =>'UserController@deleteAvatar'])->middleware(['auth','XSS']);
 Route::delete('/delete-my-account',['as' => 'delete.my.account','uses' =>'UserController@deleteMyAccount'])->middleware(['auth','XSS']);

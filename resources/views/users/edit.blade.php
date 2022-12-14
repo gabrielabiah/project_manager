@@ -17,7 +17,7 @@
             <button type="button" class="btn  btn-light" data-bs-dismiss="modal">{{ __('Close')}}</button>
             <input type="submit" value="{{ __('Save Changes' )}}" class="btn  btn-primary">
         </div>
-    
+
 </form>
 
 

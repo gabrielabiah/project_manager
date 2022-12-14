@@ -125,7 +125,7 @@ class UserController extends Controller
 
             $userByEmail = User::where('email', $user[1])->first();
 
-        
+
             if(!empty($userByEmail))
             {
                 $userData = $userByEmail;
@@ -137,10 +137,10 @@ class UserController extends Controller
 
             }
             $userData->name               = $user[0];
-            $userData->email              = $user[1]; 
-            $userData->password           = Hash::make($user[2]);     
+            $userData->email              = $user[1];
+            $userData->password           = Hash::make($user[2]);
             $userData->type               = $user[3];
-          
+
             if(empty($userData))
             {
                 $errorArray[] = $userData;
@@ -152,8 +152,8 @@ class UserController extends Controller
 
             $objWorkspace             =  new Workspace();
             $objWorkspace->created_by = $userData->id;
-            $objWorkspace->name       = $userData->workspace;  
-            $objWorkspace->slug = "" ;       
+            $objWorkspace->name       = $userData->workspace;
+            $objWorkspace->slug = "" ;
             $objWorkspace->currency_code ='USD';
             $objWorkspace->paypal_mode ='sandbox';
             $userData->currant_workspace = $objWorkspace->id;
@@ -166,13 +166,13 @@ class UserController extends Controller
             {
                 $objWorkspace->save();
             }
-           
-            
+
+
             $userData->save();
 
             $userWorkspace               =   new UserWorkspace();
             $userWorkspace->user_id      =     $userData->id;
-            $userWorkspace->workspace_id =    $objWorkspace->id; 
+            $userWorkspace->workspace_id =    $objWorkspace->id;
             $userWorkspace->permission  = 'Owner';
 
                if(empty($userWorkspace))
@@ -210,7 +210,7 @@ class UserController extends Controller
 
         return redirect()->back()->with($data['status'], $data['msg']);
     }
-    
+
 
 
 
@@ -294,9 +294,9 @@ class UserController extends Controller
         return redirect()->back()->with('success', 'Avatar deleted successfully');
     }
 
-    public function update($slug = null, $id = null, Request $request)
+    public function update($id = null, Request $request)
     {
-        $currentWorkspace = Utility::getWorkspaceBySlug($slug);
+       // $currentWorkspace = Utility::getWorkspaceBySlug($slug);
         if($id)
         {
             $objUser = User::find($id);
@@ -369,7 +369,7 @@ class UserController extends Controller
 
     public function changePassword($id , Request $request)
     {
-        
+
         $user = Auth::user();
         if($user->type == 'admin' || $user->type == 'user')
         {
@@ -547,7 +547,7 @@ class UserController extends Controller
         {
             $user             = User::find($id);
             $userProjectCount = $user->countProject($currentWorkspace->id);
-           
+
             if($userProjectCount == 0)
             {
                 $userWorkspace->delete();

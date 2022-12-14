@@ -2,7 +2,7 @@
 
 @section('page-title') {{__('User Profile')}} @endsection
 @section('links')
-@if(\Auth::guard('client')->check())   
+@if(\Auth::guard('client')->check())
 <li class="breadcrumb-item"><a href="{{route('client.home')}}">{{__('Home')}}</a></li>
  @else
  <li class="breadcrumb-item"><a href="{{route('home')}}">{{__('Home')}}</a></li>
@@ -21,7 +21,7 @@
                                 @auth('client')
                                 <a href="#v-pills-billing" class="list-group-item list-group-item-action">{{__('Billing Details')}} <div class="float-end"><i class="ti ti-chevron-right"></i></div></a>
                                 @endauth
-                                
+
                             </div>
                         </div>
                     </div>
@@ -31,12 +31,13 @@
                                 <h5>{{__('Avatar')}}</h5>
                             </div>
                             <div class="card-body">
-                          <form method="post" action="@auth('web'){{route('update.account')}}@elseauth{{route('client.update.account')}}@endauth" enctype="multipart/form-data">
+                                
+                          <form method="post" action="@auth('web'){{route('update.account',$user->id)}}@elseauth{{route('client.update.account',$user->id)}}@endauth" enctype="multipart/form-data">
                                             @csrf
                                             <div class="row">
                                                 <div class="col-lg-6">
                                                     <div class="form-group">
-                                                     
+
                                                         <img @if($user->avatar) src="{{asset('/storage/avatars/'.$user->avatar)}}" @else avatar="{{ $user->name }}" @endif id="myAvatar" alt="user-image" class="rounded-circle img-thumbnail img_hight w-25">
                                                         @if($user->avatar!='')
                                                        <div class=" ">
@@ -86,11 +87,11 @@
                                                   <div class="text-end">
                                                        <button type="submit" class="btn-submit btn btn-primary">
                                                             {{ __('Save Changes')}}
-                                                        </button> 
+                                                        </button>
                                                <!--   <button class="btn btn-danger">Delete Account<i
                                                 class="ti ti-chevron-right ms-1 ms-sm-2"></i></button> -->
                                                 </div>
-                                 
+
                                                     </div>
                                                 </div> <!-- end col -->
                                             </div> <!-- end row -->
@@ -127,7 +128,7 @@
                                      <div class="card-body">
                                         <form method="post" action="@auth('web'){{route('update.password')}}@elseauth{{route('client.update.password')}}@endauth">
                                             @csrf
-                                          
+
                                                 <div class="col-lg-12">
                                                       <div class="row">
                                                     <div class="col-lg-12">
@@ -216,7 +217,7 @@
                                             </form>
                                         </div>
                                         </div>
-                                    @endauth 
+                                    @endauth
                                </div>
                           </div>
 @endsection
@@ -238,8 +239,8 @@
             } else {
                 $('.list-group-item:eq(0)').addClass('active').removeClass('text-primary');
             }
-      
-                 
+
+
 
 
        var scrollSpy = new bootstrap.ScrollSpy(document.body, {
