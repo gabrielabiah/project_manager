@@ -31,7 +31,7 @@
                                 <h5>{{__('Avatar')}}</h5>
                             </div>
                             <div class="card-body">
-                                
+
                           <form method="post" action="@auth('web'){{route('update.account',$user->id)}}@elseauth{{route('client.update.account',$user->id)}}@endauth" enctype="multipart/form-data">
                                             @csrf
                                             <div class="row">
