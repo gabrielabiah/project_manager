@@ -13,17 +13,17 @@ $setting = App\Models\Utility::getAdminPaymentSettings();
     $cust_theme_bg =$setting['cust_theme_bg'];
     $SITE_RTL = env('SITE_RTL');
 }
-else { 
+else {
     $setting = App\Models\Utility::getcompanySettings($currentWorkspace->id);
     $color = $setting->theme_color;
-    $dark_mode = $setting->cust_darklayout; 
+    $dark_mode = $setting->cust_darklayout;
     $SITE_RTL = $setting->site_rtl;
     $cust_theme_bg = $setting->cust_theme_bg;
 }
 
    if($color == '' || $color == null){
       $settings = App\Models\Utility::getAdminPaymentSettings();
-      $color = $settings['color'];           
+      $color = $settings['color'];
    }
 
    if($dark_mode == '' || $dark_mode == null){
@@ -50,7 +50,7 @@ else {
         @if(trim($__env->yieldContent('page-title')) && Auth::user()->type == 'admin')
             {{ config('app.name', 'Taskly') }} -@yield('page-title')
         @else
-             {{ isset($currentWorkspace->company) && $currentWorkspace->company != '' ? $currentWorkspace->company : config('app.name', 'Taskly') }} -@yield('page-title')
+             {{ isset($currentWorkspace->company) && $currentWorkspace->company != '' ? $currentWorkspace->company : config('app.name', 'Gabes Portal') }} -@yield('page-title')
         @endif
     </title>
 
@@ -77,7 +77,7 @@ else {
 <!--     @if($SITE_RTL =='on')
         <link rel="stylesheet" href="{{ asset('assets/css/style-rtl.css')}}" id="main-style-link">
        @else
-         
+
          @if($dark_mode =='on')
           <link rel="stylesheet" href="{{ asset('assets/css/style-dark.css')}}">
          @else
